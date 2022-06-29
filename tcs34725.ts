@@ -8,6 +8,26 @@ enum RGB {
     //% block="全部"
     CLEAR
 }
+enum RGBv2 {
+    //% block="红"
+    RED,
+    //% block="绿"
+    GREEN,
+    //% block="蓝"
+    BLUE,
+    //% block="紫"
+    PURPLE,
+    //% block="黄"
+    YELLOW,
+    //% block="橙"
+    ORANGE,
+    //% block="白"
+    WHITE,
+    //% block="黑"
+    BLACK,
+    //% block="灰"
+    GRAY
+}
 //% weight=0 color=#3CB371 icon="\uf1b3" block="色彩传感器"
 namespace TCS34725_SENSOR {
     enum LCS_Constants {
@@ -233,6 +253,69 @@ namespace TCS34725_SENSOR {
             rgbc[3] = 1
         }
         return rgbc
+    }
+
+    function Color_to_RGB_raw(color: RGBv2): number[] {
+        switch(color) {
+            case RGBv2.RED:
+                return [255,0,0]
+            case RGBv2.GREEN:
+                return [0,255,0]
+            case RGBv2.BLUE:
+                return [0,0,255]
+            case RGBv2.PURPLE:
+                return [128,0,255]
+            case RGBv2.YELLOW:
+                return [255,255,0]
+            case RGBv2.ORANGE:
+                return [255,128,0]
+            case RGBv2.WHITE:
+                return [255,255,255]
+            case RGBv2.BLACK:
+                return [0,0,0]
+            case RGBv2.GRAY:
+                return [128,128,128]
+        }
+    }
+
+    function rawColorDistance(c1: number[], c2: number[]): number {
+        let rmean = Math.floor((c1[0], c2[0])/2);
+        let r = c1[0]-c2[0];
+        let g = c1[1]-c2[1];
+        let b = c1[2]-c2[2];
+        return ((((512+rmean)*r*r)>>8) + 4*g*g + (((767-rmean)*b*b)>>8));
+    }
+
+    //% blockId="getColorV2" block="详细颜色是"
+    export function getColorV2(): RGBv2 {
+        basic.pause((256 - LCS_integration_time_val) * 2.4);
+
+        let sum = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.CDATAL));
+        let r = Math.floor(I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL)) / sum * 255);
+        let g =  Math.floor(I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL)) / sum * 255);
+        let b = Math.floor(I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL)) / sum *255);
+
+        let rgb = [r,g,b]
+        let colors = [RGBv2.RED, RGBv2.GREEN, RGBv2.BLUE, RGBv2.PURPLE, RGBv2.YELLOW, RGBv2.ORANGE, RGBv2.WHITE, RGBv2.BLACK, RGBv2.GRAY]
+        let dist = [0,0,0,0,0,0,0,0,0]
+        let minDist = 10000000
+        let color = RGBv2.BLACK
+        for (let idx = 0; idx < colors.length; idx++) {
+            const c2 = colors[idx];
+            let rgb2 = Color_to_RGB_raw(c2)
+            dist[idx] = rawColorDistance(rgb, rgb2)
+            if (dist[idx] < minDist) {
+                minDist = dist[idx]
+                color = c2
+            }
+        }
+
+        return color
+    }
+
+    //% blockId="colorTypeV2" block="详细颜色 %colorType"
+    export function colorTypeV2(colorType:RGBv2): RGBv2{
+        return colorType;
     }
 }
  
