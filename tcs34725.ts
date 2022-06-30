@@ -9,19 +9,19 @@ enum RGB {
     CLEAR
 }
 enum RGBv2 {
-    //% block="红"
+    //% block="红" color=#FF0000
     RED,
-    //% block="绿"
+    //% block="绿" color=#00FF00
     GREEN,
-    //% block="蓝"
+    //% block="蓝" color=#0000FF
     BLUE,
-    //% block="紫"
+    //% block="紫" color=#9400D3
     PURPLE,
-    //% block="黄"
+    //% block="黄" color=#FFFF00
     YELLOW,
-    //% block="橙"
+    //% block="橙" color=#FFA500
     ORANGE,
-    //% block="未知"
+    //% block="未知" color=#808080
     UNKNOWN
 }
 //% weight=0 color=#3CB371 icon="\uf1b3" block="色彩传感器"
@@ -293,13 +293,15 @@ namespace TCS34725_SENSOR {
 
         return RGBv2.UNKNOWN
     }
-
+    
+    //% group="试用"
     //% blockId="colorTypeV2" block="[试] %colorType 色"
     export function colorTypeV2(colorType:RGBv2): RGBv2{
         return colorType;
     }
     
-    //% blockId="detectColorType" block="扫描到%colorType色"
+    //% group="试用"
+    //% blockId="detectColorType" block="[试] 扫描到%colorType色"
     export function detectColorType(color:RGBv2): boolean {
         return (getColorV2() == color);
     }
