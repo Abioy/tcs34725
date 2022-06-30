@@ -21,8 +21,8 @@ enum RGBv2 {
     YELLOW,
     //% block="橙"
     ORANGE,
-    //% block="黑"
-    BLACK
+    //% block="未知"
+    UNKNOWN
 }
 //% weight=0 color=#3CB371 icon="\uf1b3" block="色彩传感器"
 namespace TCS34725_SENSOR {
@@ -121,8 +121,11 @@ namespace TCS34725_SENSOR {
         }
 
         // Set default integration time and gain.
-        LCS_set_integration_time(0.0048)
-        LCS_set_gain(LCS_Constants.GAIN_16X)
+        //LCS_set_integration_time(0.0048)
+        //LCS_set_gain(LCS_Constants.GAIN_16X)
+        //http://www.makerblog.at/2015/01/farben-erkennen-mit-dem-rgb-sensor-tcs34725-und-dem-arduino/
+        LCS_set_integration_time(0.0504)
+        LCS_set_gain(LCS_Constants.GAIN_1X)
 
         // Enable the device (by default, the device is in power down mode on bootup).
         LCS_enable()
@@ -251,24 +254,6 @@ namespace TCS34725_SENSOR {
         return rgbc
     }
 
-    function Color_to_RGB_raw(color: RGBv2): number[] {
-        switch(color) {
-            case RGBv2.RED:
-                return [255,0,0]
-            case RGBv2.GREEN:
-                return [0,255,0]
-            case RGBv2.BLUE:
-                return [0,0,255]
-            case RGBv2.PURPLE:
-                return [128,0,255]
-            case RGBv2.YELLOW:
-                return [255,255,0]
-            case RGBv2.ORANGE:
-                return [255,128,0]
-            case RGBv2.BLACK:
-                return [0,0,0]
-        }
-    }
 
     function rawColorDistance(c1: number[], c2: number[]): number {
         let rmean = Math.floor((c1[0], c2[0])/2);
@@ -278,9 +263,11 @@ namespace TCS34725_SENSOR {
         return ((((512+rmean)*r*r)>>8) + 4*g*g + (((767-rmean)*b*b)>>8));
     }
     
-    //% blockId="getColorV2" block="检查到的详细颜色"
+    //% group="试用"
+    //% blockId="getColorV2" block="[试] 扫描到的颜色"
     export function getColorV2(): RGBv2 {
-        basic.pause((256 - LCS_integration_time_val) * 2.4);
+        //basic.pause((256 - LCS_integration_time_val) * 2.4);
+        basic.pause((256 - LCS_integration_time_val) * 2.4 * 2);
 
         let r = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
         let g =  I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
@@ -304,12 +291,17 @@ namespace TCS34725_SENSOR {
             return RGBv2.PURPLE
         }
 
-        return RGBv2.BLACK
+        return RGBv2.UNKNOWN
     }
 
-    //% blockId="colorTypeV2" block="%colorType 色"
+    //% blockId="colorTypeV2" block="[试] %colorType 色"
     export function colorTypeV2(colorType:RGBv2): RGBv2{
         return colorType;
+    }
+    
+    //% blockId="detectColorType" block="扫描到%colorType色"
+    export function detectColorType(color:RGBv2): boolean {
+        return (getColorV2() == color);
     }
 }
  
