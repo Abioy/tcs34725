@@ -1,5 +1,5 @@
 {
-    "name": "pxt-teenkit-color-sensor",
+    "name": "pxt-abioy-color-sensor",
     "version": "0.0.0",
     "description": "tcs34725",
     "dependencies": {
