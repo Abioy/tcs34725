@@ -305,5 +305,29 @@ namespace TCS34725_SENSOR {
     export function detectColorType(color:RGBv2): boolean {
         return (getColorV2() == color);
     }
+    
+    //% group="试用"
+    //% blockId="myColorPicker" block="$color"
+    //% color.fieldEditor="colornumber" color.fieldOptions.decompileLiterals=true
+    //% color.defl='#ffaa00' group=colors weight=150
+    //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
+    //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
+    export function myColorPicker(color: number): RGBv2 {
+        switch(color) {
+            case 0xff0000:
+                return RGBv2.RED;
+            case 0x00ff00:
+                return RGBv2.GREEN;
+            case 0x0000ff:
+                return RGBv2.BLUE;
+            case 0xffff00:
+                return RGBv2.YELLOW;
+            case 0xFF7F50:
+                return RGBv2.ORANGE;
+            case 0x800080:
+                return RGBv2.PURPLE;
+        }
+        return RGBv2.UNKNOWN;
+    }
 }
  
