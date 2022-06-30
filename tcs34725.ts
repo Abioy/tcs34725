@@ -315,10 +315,7 @@ namespace TCS34725_SENSOR {
 
     //% group="试用"
     //% blockId="getColorV4" block="%color"
-    //% color.fieldEditor="colornumber" 
-    //% color.defl='#800080' weight=150
-    //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
-    //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
+    //% color.shadow="getColorV3"
     export function getColorV4(color: number): RGBv2 {
         let c2 = RGBv2.UNKNOWN
         switch(color) {
