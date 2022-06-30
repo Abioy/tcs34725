@@ -301,25 +301,44 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="试用"
-    //% blockId="detectColorType" block="[试] 扫描到%colorType色"
-    export function detectColorType(color:RGBv2): boolean {
-        return (getColorV2() == color);
-    }
-    
-    //% group="试用"
-    //% blockId="_getColorV3" block="%color"
+    //% blockId="getColorV3" block="%color"
     //% blockHidden=true
     //% color.fieldEditor="colornumber" 
     //% color.defl='#800080' weight=150
     //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
     //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
-    export function _getColorV3(color: number): number {
+    export function getColorV3(color: number): number {
         return color;
+    }
+
+    //% group="试用"
+    //% blockId="getColorV4" block="%color"
+    //% color.fieldEditor="colornumber" 
+    //% color.defl='#800080' weight=150
+    //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
+    //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
+    export function getColorV4(color: number): RGBv2 {
+        let c2 = RGBv2.UNKNOWN
+        switch(color) {
+            case 0xff0000:
+                c2 = GBv2.RED;
+            case 0x00ff00:
+                c2 = RGBv2.GREEN;
+            case 0x0000ff:
+                c2 = RGBv2.BLUE;
+            case 0xffff00:
+                c2 = RGBv2.YELLOW;
+            case 0xFF7F50:
+                c2 = RGBv2.ORANGE;
+            case 0x800080:
+                c2 = RGBv2.PURPLE;
+        }
+        return c2;
     }
     
     //% group="试用"
     //% blockId="detectColorTypeV2" block="[试] 扫描到%color"
-    //% color.shadow="_getColorV3"
+    //% color.shadow="getColorV3"
     export function detectColorTypeV2(color: number): boolean {
         let c2 = RGBv2.UNKNOWN
         switch(color) {
