@@ -1,6 +1,6 @@
 {
     "name": "pxt-abioy-color-sensor",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "tcs34725",
     "dependencies": {
         "core": "*"        
