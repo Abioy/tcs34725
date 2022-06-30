@@ -320,7 +320,7 @@ namespace TCS34725_SENSOR {
         let c2 = RGBv2.UNKNOWN
         switch(color) {
             case 0xff0000:
-                c2 = GBv2.RED;
+                c2 = RGBv2.RED;
             case 0x00ff00:
                 c2 = RGBv2.GREEN;
             case 0x0000ff:
@@ -342,7 +342,7 @@ namespace TCS34725_SENSOR {
         let c2 = RGBv2.UNKNOWN
         switch(color) {
             case 0xff0000:
-                c2 = GBv2.RED;
+                c2 = RGBv2.RED;
             case 0x00ff00:
                 c2 = RGBv2.GREEN;
             case 0x0000ff:
