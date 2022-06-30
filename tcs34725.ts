@@ -264,8 +264,8 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="试用"
-    //% blockHidden=true
     //% blockId="getColorV2" block="[试] 扫描到的颜色"
+    //% blockHidden=true
     export function getColorV2(): RGBv2 {
         //basic.pause((256 - LCS_integration_time_val) * 2.4);
         basic.pause((256 - LCS_integration_time_val) * 2.4 * 2);
@@ -296,8 +296,8 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="试用"
-    //% blockHidden=true
     //% blockId="colorTypeV2" block="[试] %colorType 色"
+    //% blockHidden=true
     export function colorTypeV2(colorType:RGBv2): RGBv2{
         return colorType;
     }
