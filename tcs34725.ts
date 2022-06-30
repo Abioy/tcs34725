@@ -307,9 +307,9 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="试用"
-    //% blockId="detectColorTypeV2" block="[试] 扫描到 $color"
+    //% blockId="detectColorTypeV2" block="[试] 扫描到 %color"
     //% color.shadow=colorNumberPicker
-    //% color.defl='#ffaa00' group=colors weight=150
+    //% color.defl='#800080' weight=150
     //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
     //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
     export function detectColorTypeV2(color: number): boolean {
