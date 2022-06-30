@@ -307,11 +307,19 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="试用"
-    //% blockId="detectColorTypeV2" block="[试] 扫描到 %color"
+    //% blockId="_getColorV3" block="%color"
+    //% blockHidden=true
     //% color.fieldEditor="colornumber" 
     //% color.defl='#800080' weight=150
     //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff","#FFFF00","#FF7F50","#800080"]'
     //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
+    export function _getColorV3(color: number): number {
+        return color;
+    }
+    
+    //% group="试用"
+    //% blockId="detectColorTypeV2" block="[试] 扫描到%color"
+    //% color.shadow="_getColorV3"
     export function detectColorTypeV2(color: number): boolean {
         let c2 = RGBv2.UNKNOWN
         switch(color) {
@@ -328,7 +336,8 @@ namespace TCS34725_SENSOR {
             case 0x800080:
                 c2 = RGBv2.PURPLE;
         }
-        return getColorV2() == c2;
+        return c2 == getColorV2();
     }
+
 }
  
