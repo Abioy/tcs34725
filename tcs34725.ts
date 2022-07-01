@@ -24,6 +24,28 @@ enum RGBv2 {
     //% block="未知" color=#808080
     UNKNOWN
 }
+enum INTERVAL {
+    //% block="2.4ms"
+    MS2_4 = 2.4,
+    //% block="4.8ms"
+    MS4_8 = 4.8,
+    //% block="24ms"
+    MS24 = 24,
+    //% block="48ms"
+    MS48 = 48,
+    //% block="100ms"
+    MS100 = 100,
+}
+enum GAIN {
+    //% block="1倍"
+    X1,
+    //% block="4倍"
+    X4,
+    //% block="16倍"
+    X16,
+    //% block="60倍"
+    X60,
+}
 //% weight=0 color=#3CB371 icon="\uf1b3" block="色彩传感器"
 namespace TCS34725_SENSOR {
     enum LCS_Constants {
@@ -109,6 +131,38 @@ namespace TCS34725_SENSOR {
         buf = pins.i2cReadBuffer(addr, 2)
         // Little endian
         return ((buf.getNumber(NumberFormat.UInt8BE, 1) << 8) | buf.getNumber(NumberFormat.UInt8BE, 0));
+    }
+
+
+    //% group="6种颜色模式[试用]"
+    //% blockId="initialize_sensor_v2" block="初始化颜色传感器 || 积分检测时间 %tm 信号放大 %gain"
+    //% gain.defl = GAIN.X1
+    //% tm.defl = INTERVAL.MS48
+    //% expandableArgumentMode="toggle"
+    export function LCS_initialize_v2(tm?: INTERVAL, gain?: GAIN) {
+        //http://www.makerblog.at/2015/01/farben-erkennen-mit-dem-rgb-sensor-tcs34725-und-dem-arduino/
+        // Make sure we're connected to the right sensor.
+        let Tm = INTERVAL.MS48
+        let Gain = GAIN.X1
+        if (typeof tm != 'undefined') {
+            Tm = tm
+        }
+        if (typeof gain != 'undefined') {
+            Gain = gain
+        }
+
+        let chip_id = I2C_ReadReg8(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.ID))
+
+        if (chip_id != 0x44) {
+            return // Incorrect chip ID
+        }
+
+        // Set default integration time and gain.
+        LCS_set_integration_time(Tm/1000)
+        LCS_set_gain(Gain)
+
+        // Enable the device (by default, the device is in power down mode on bootup).
+        LCS_enable()
     }
 
     //% blockId="initialize_sensor" block="初始化颜色传感器"
