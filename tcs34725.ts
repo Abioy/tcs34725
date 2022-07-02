@@ -223,7 +223,7 @@ namespace TCS34725_SENSOR {
     }
 
     //% group="3颜色模式"
-    //% blockId="getColor" block="读取颜色的颜色是"
+    //% blockId="getColor" block="3色读取到的颜色"
     export function getColor(): RGB {
         basic.pause((256 - LCS_integration_time_val) * 2.4);
         
@@ -260,7 +260,7 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="3颜色模式"
-    //% blockId="colorType" block="%colorType"
+    //% blockId="colorType" block="3色%color"
     //% color.shadow="myColorPickerV1"
     export function colorType(color: number): RGB{
         switch(color) {
@@ -275,7 +275,7 @@ namespace TCS34725_SENSOR {
 
         
     //% group="3颜色模式"
-    //% blockId="detectColorTypeV1" block="扫描到了%color"
+    //% blockId="detectColorTypeV1" block="3色读取到了%color"
     //% color.shadow="myColorPickerV1"
     export function detectColorTypeV1(color: number): boolean {
         let c2 = RGB.CLEAR
@@ -357,7 +357,7 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="6种颜色模式[试用]"
-    //% blockId="getColorV2" block="扫描到的颜色"
+    //% blockId="getColorV2" block="6色扫描到的颜色"
     export function getColorV2(): RGBv2 {
         //basic.pause((256 - LCS_integration_time_val) * 2.4);
         basic.pause((256 - LCS_integration_time_val) * 2.4 * 2);
@@ -400,7 +400,7 @@ namespace TCS34725_SENSOR {
     }
 
     //% group="6种颜色模式[试用]"
-    //% blockId="colorTypeV2" block="%color"
+    //% blockId="colorTypeV2" block="6色%color"
     //% color.shadow="myColorPicker"
     export function colorTypeV2(color: number): RGBv2 {
         let c2 = RGBv2.UNKNOWN
@@ -422,7 +422,7 @@ namespace TCS34725_SENSOR {
     }
     
     //% group="6种颜色模式[试用]"
-    //% blockId="detectColorTypeV2" block="扫描到了%color"
+    //% blockId="detectColorTypeV2" block="6色扫描到了%color"
     //% color.shadow="myColorPicker"
     export function detectColorTypeV2(color: number): boolean {
         let c2 = RGBv2.UNKNOWN
