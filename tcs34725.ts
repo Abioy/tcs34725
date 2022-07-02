@@ -247,11 +247,47 @@ namespace TCS34725_SENSOR {
         serial.writeLine("val: " + color);
         return color;
     }
+
+    //% group="3颜色模式"
+    //% blockId="myColorPickerV1" block="%color"
+    //% blockHidden=true
+    //% color.fieldEditor="colornumber" 
+    //% color.defl='#800080' weight=150
+    //% color.fieldOptions.colours='["#ff0000","#00ff00","#0000ff"]'
+    //% color.fieldOptions.columns=3 color.fieldOptions.className='rgbColorPicker' 
+    export function myColorPickerV1(color: number): number {
+        return color;
+    }
     
     //% group="3颜色模式"
-    //% blockId="colorType" block="颜色值 %colorType"
-    export function colorType(colorType:RGB): RGB{
-        return colorType;
+    //% blockId="colorType" block="%colorType"
+    //% color.shadow="myColorPickerV1"
+    export function colorType(color: number): RGB{
+        switch(color) {
+            case 0xff0000:
+                return RGB.RED;
+            case 0x00ff00:
+                return RGB.GREEN;
+            case 0x0000ff:
+                return RGB.BLUE;
+        }
+    }
+
+        
+    //% group="3颜色模式"
+    //% blockId="detectColorTypeV1" block="扫描到了%color"
+    //% color.shadow="myColorPickerV1"
+    export function detectColorTypeV1(color: number): boolean {
+        let c2 = RGB.CLEAR
+        switch(color) {
+            case 0xff0000:
+                c2 = RGB.RED;
+            case 0x00ff00:
+                c2 = RGB.GREEN;
+            case 0x0000ff:
+                c2 = RGB.BLUE;
+        }
+        return c2 == getColor();
     }
 
     //% blockId="getSensorData" block="读取颜色值 %colorId"
@@ -329,6 +365,7 @@ namespace TCS34725_SENSOR {
         let r = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
         let g =  I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
         let b = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
+
         let avg = (r+g+b)/3
         r = r / avg;
         g = g / avg;
