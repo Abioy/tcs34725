@@ -271,6 +271,7 @@ namespace TCS34725_SENSOR {
             case 0x0000ff:
                 return RGB.BLUE;
         }
+        return RGB.CLEAR
     }
 
         
