@@ -134,8 +134,8 @@ namespace TCS34725_SENSOR {
     }
 
 
-    //% group="6种颜色模式[试用]"
-    //% blockId="initialize_sensor_v2" block="初始化颜色传感器 || 积分检测时间 %tm 信号放大 %gain"
+    //% group="公共"
+    //% blockId="initialize_sensor_v2" block="颜色传感器连接到 P19-P20 || 积分检测时间 %tm 信号放大 %gain"
     //% gain.defl = GAIN.X1
     //% tm.defl = INTERVAL.MS48
     //% expandableArgumentMode="toggle"
@@ -166,6 +166,7 @@ namespace TCS34725_SENSOR {
     }
 
     //% blockId="initialize_sensor" block="初始化颜色传感器"
+    //% blockHidden=true
     export function LCS_initialize() {
         // Make sure we're connected to the right sensor.
         let chip_id = I2C_ReadReg8(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.ID))
@@ -291,6 +292,7 @@ namespace TCS34725_SENSOR {
         return c2 == getColor();
     }
 
+    //% group="公共"
     //% blockId="getSensorData" block="读取颜色值 %colorId"
     export function getColorData(color: RGB): number {
         basic.pause((256 - LCS_integration_time_val) * 2.4);
