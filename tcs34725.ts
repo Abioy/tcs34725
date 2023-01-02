@@ -227,23 +227,24 @@ namespace TCS34725_SENSOR {
     //% blockId="getColor" block="3色读取到的颜色"
     export function getColor(): RGB {
         basic.pause((256 - LCS_integration_time_val) * 2.4);
-        
-         let r = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
-         let g =  I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
-         let b = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
+        let r = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
+        basic.pause((256 - LCS_integration_time_val) * 2.4);
+        let g =  I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.GDATAL));
+        basic.pause((256 - LCS_integration_time_val) * 2.4);
+        let b = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.BDATAL));
          
-         serial.writeLine("R:"+r + " G:" + g + " B:" + b);
+        serial.writeLine("R:"+r + " G:" + g + " B:" + b);
          
-         let color = RGB.RED;
-         let max = r;
-         if(g > max){
-             max = g;
-             color = RGB.GREEN;
-         }
-         if(b > max){
-             max = b;
-             color = RGB.BLUE;
-         }
+        let color = RGB.RED;
+        let max = r;
+        if(g > max){
+            max = g;
+            color = RGB.GREEN;
+        }
+        if(b > max){
+            max = b;
+            color = RGB.BLUE;
+        }
 
         serial.writeLine("val: " + color);
         return color;
