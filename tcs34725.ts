@@ -235,8 +235,8 @@ namespace TCS34725_SENSOR {
     //% x.defl=color3
     //% x.shadow=variables_get
     //% y.shadow="myColorPickerV1"
-    export function colorCompare(x: RGB, y: RGB): boolean {
-        return x == y
+    export function colorCompare(x: RGB, y: number): boolean {
+        return x == colorType(y)
     }
 
     //% group="3颜色模式"
