@@ -106,6 +106,7 @@ namespace TCS34725_SENSOR {
     }
 
     let LCS_integration_time_val = 0
+    let color3 = RGB.CLEAR
 
     // I2C functions
 
