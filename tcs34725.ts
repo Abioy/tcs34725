@@ -224,8 +224,24 @@ namespace TCS34725_SENSOR {
     }
 
     //% group="3颜色模式"
+    //% blockId="getColorToVar" block="3色检测到的颜色"
+    //% blockSetVariable=color3
+    export function getColorToVar(): RGB {
+        return getColor()
+    }
+
+    //% group="3颜色模式"
+    //% blockId="colorCompare" block="3色 $x 是 $y"
+    //% x.defl=color3
+    //% y.shadow="myColorPickerV1"
+    export function colorCompare(x: RGB, y: RGB): boolean {
+        return x == y
+    }
+
+    //% group="3颜色模式"
     //% blockId="getColor" block="3色读取到的颜色"
     export function getColor(): RGB {
+        I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.CDATAL));
         basic.pause((256 - LCS_integration_time_val) * 2.4);
         let r = I2C_ReadReg16(LCS_Constants.ADDRESS, (LCS_Constants.COMMAND_BIT | LCS_Constants.RDATAL));
         basic.pause((256 - LCS_integration_time_val) * 2.4);
